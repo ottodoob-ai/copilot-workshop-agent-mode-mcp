@@ -8,6 +8,7 @@ const themeToggle = document.querySelector("#theme-toggle");
 const themeIcon = document.querySelector("#theme-icon");
 const themeLabel = document.querySelector("#theme-label");
 const filterButtons = document.querySelectorAll("[data-filter]");
+const clearCompletedButton = document.querySelector("#clear-completed-button");
 
 // 從瀏覽器儲存空間載入待辦資料，資料損壞時回到空清單。
 let todos = loadTodos();
@@ -98,7 +99,9 @@ function renderTodos() {
   });
 
   const incompleteCount = todos.filter((todo) => !todo.completed).length;
+  const completedCount = todos.length - incompleteCount;
   remainingCount.textContent = `未完成:${incompleteCount} 項`;
+  clearCompletedButton.disabled = completedCount === 0;
   emptyMessage.textContent = todos.length === 0
     ? "還沒有任何待辦事項,新增一個吧!"
     : currentFilter === "active"
@@ -124,6 +127,18 @@ filterButtons.forEach((button) => {
     });
     renderTodos();
   });
+});
+
+clearCompletedButton.addEventListener("click", () => {
+  const completedCount = todos.filter((todo) => todo.completed).length;
+
+  if (completedCount === 0 || !confirm(`確定要清除 ${completedCount} 項已完成事項嗎？`)) {
+    return;
+  }
+
+  todos = todos.filter((todo) => !todo.completed);
+  saveTodos();
+  renderTodos();
 });
 
 // 沒有手動選擇主題時，作業系統設定變更也會同步更新畫面。
