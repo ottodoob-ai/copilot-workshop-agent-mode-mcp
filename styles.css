@@ -8,9 +8,28 @@
   --color-accent-dark: #12584f;
   --color-accent-soft: #e0f1ed;
   --color-danger: #b25454;
+  --color-button-text: #ffffff;
+  --color-header-end: #f8fbfa;
+  --color-focus-ring: rgba(25, 117, 106, 0.14);
   --shadow-card: 0 18px 45px rgba(36, 67, 61, 0.12);
   --radius-card: 20px;
   --radius-control: 10px;
+}
+
+:root[data-theme="dark"] {
+  --color-background: #17211f;
+  --color-card: #22302d;
+  --color-text: #edf5f2;
+  --color-muted: #a4b5b0;
+  --color-border: #3b4e49;
+  --color-accent: #69c7b5;
+  --color-accent-dark: #4eaa99;
+  --color-accent-soft: #29443f;
+  --color-danger: #e28a8a;
+  --color-button-text: #10201d;
+  --color-header-end: #263936;
+  --color-focus-ring: rgba(105, 199, 181, 0.2);
+  --shadow-card: 0 18px 45px rgba(0, 0, 0, 0.3);
 }
 
 * {
@@ -24,6 +43,7 @@ body {
   color: var(--color-text);
   background: var(--color-background);
   font-family: "Avenir Next", "PingFang TC", "Noto Sans TC", sans-serif;
+  transition: color 160ms ease, background-color 160ms ease;
 }
 
 .todo-card {
@@ -31,14 +51,38 @@ body {
   margin: 0 auto;
   overflow: hidden;
   background: var(--color-card);
-  border: 1px solid rgba(219, 229, 225, 0.8);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-card);
 }
 
 .todo-header {
   padding: 34px 34px 26px;
-  background: linear-gradient(135deg, var(--color-accent-soft), #f8fbfa);
+  background: linear-gradient(135deg, var(--color-accent-soft), var(--color-header-end));
+}
+
+.title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  padding: 8px 10px;
+  color: var(--color-accent-dark);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  font-size: 0.8rem;
+}
+
+.theme-toggle:hover {
+  color: var(--color-button-text);
+  background: var(--color-accent);
 }
 
 .eyebrow {
@@ -81,12 +125,12 @@ h1 {
 
 .todo-form input:focus {
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(25, 117, 106, 0.14);
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
 }
 
 button {
   padding: 12px 18px;
-  color: #ffffff;
+  color: var(--color-button-text);
   font: inherit;
   font-weight: 700;
   background: var(--color-accent);
@@ -107,6 +151,27 @@ button:active {
 .todo-section {
   min-height: 160px;
   padding: 10px 34px 0;
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 6px 34px 10px;
+}
+
+.filter-button {
+  padding: 8px 13px;
+  color: var(--color-muted);
+  background: transparent;
+  border: 1px solid transparent;
+  font-size: 0.9rem;
+}
+
+.filter-button:hover,
+.filter-button.active {
+  color: var(--color-accent-dark);
+  background: var(--color-accent-soft);
+  border-color: var(--color-accent);
 }
 
 .empty-message {
@@ -160,7 +225,7 @@ button:active {
 }
 
 .delete-button:hover {
-  color: #ffffff;
+  color: var(--color-button-text);
   background: var(--color-danger);
 }
 
@@ -190,6 +255,7 @@ button:active {
 
   .todo-header,
   .todo-form,
+  .filter-tabs,
   .todo-section,
   .todo-footer {
     padding-right: 20px;
@@ -203,5 +269,14 @@ button:active {
   .todo-form button {
     padding-right: 14px;
     padding-left: 14px;
+  }
+
+  .title-row {
+    align-items: flex-start;
+  }
+
+  .theme-toggle {
+    max-width: 132px;
+    text-align: left;
   }
 }
