@@ -102,9 +102,9 @@ function renderTodos() {
   emptyMessage.textContent = todos.length === 0
     ? "還沒有任何待辦事項,新增一個吧!"
     : currentFilter === "active"
-      ? "目前沒有未完成的待辦事項。"
+      ? "目前沒有未完成的事項,其他項目仍在清單中。"
       : currentFilter === "completed"
-        ? "目前沒有已完成的待辦事項。"
+        ? "目前沒有已完成的事項,項目仍在清單中,只是被目前的篩選條件過濾。"
         : "還沒有任何待辦事項,新增一個吧!";
   emptyMessage.hidden = getFilteredTodos().length > 0;
 }
